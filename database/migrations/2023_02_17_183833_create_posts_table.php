@@ -9,14 +9,15 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up() : void
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->text('text');
-            $table->string('image')->nullable();
+            $table->string('image');
+            $table->bigInteger('page_id')->unsigned();
 
-            $table->foreign('page_id')->references('id')->('pages')
+            $table->foreign('page_id')->references('id')->on('pages')
             ->onDelete('cascade')->onUpdate('cascade');
 
             $table->timestamps();
@@ -27,7 +28,7 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
-    public function down(): void
+    public function down() : void
     {
         Schema::dropIfExists('posts');
     }
