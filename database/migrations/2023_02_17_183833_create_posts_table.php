@@ -14,8 +14,13 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->text('text');
-            $table->string('image');
+            $table->string('image')->nullable();
+
+            $table->foreign('page_id')->references('id')->('pages')
+            ->onDelete('cascade')->onUpdate('cascade');
+
             $table->timestamps();
+            
         });
     }
 
