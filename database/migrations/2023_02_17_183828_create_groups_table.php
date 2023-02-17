@@ -13,7 +13,14 @@ return new class extends Migration
     {
         Schema::create('groups', function (Blueprint $table) {
             $table->id();
+            $table->text('name');
             $table->text('about');
+            $table->string('image');
+            $table->bigInteger('page_id')->unsigned();
+
+            $table->foreign('page_id')->references('id')->on('pages')
+            ->onDelete('cascade')->onUpdate('cascade');
+
             $table->timestamps();
         });
     }
