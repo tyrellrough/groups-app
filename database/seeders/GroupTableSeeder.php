@@ -19,6 +19,6 @@ class GroupTableSeeder extends Seeder
         $group->image = "Test group image";
         $group->page_id = 1;
         $group->save();
-
+        $group->Users()->attach(1);
     }
 }

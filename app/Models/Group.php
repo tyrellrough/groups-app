@@ -16,7 +16,7 @@ class Group extends Model
         return $this->belongsTo(Page::class);
     }
 
-    public function Users()
+    public function users()
     {
         return $this->belongsToMany(User::class);
     }

@@ -20,7 +20,6 @@ return new class extends Migration
             $table->foreign('group_id')->references('id')->on('groups')
             ->onDelete('cascade')->onUpdate('cascade');
 
-            
             $table->foreign('user_id')->references('id')->on('users')
             ->onDelete('cascade')->onUpdate('cascade');
         });

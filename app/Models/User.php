@@ -14,7 +14,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    public function Groups()
+    public function groups()
     {
         return $this->belongsToMany(Group::class);
     }
