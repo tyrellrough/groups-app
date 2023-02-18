@@ -19,6 +19,14 @@ class PostTableSeeder extends Seeder
         $post->page_id = 1;
         $post->save();
 
-        //factory call will go here.
+        $post2 = new Post;
+        $post2->text = "Post 2";
+        $post2->image = "nothing here for now...";
+        $post2->page_id = 2;
+        $post2->save();
+
+
+
+        Post::factory()->count(198)->create();
     }
 }

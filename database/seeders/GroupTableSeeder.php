@@ -20,5 +20,7 @@ class GroupTableSeeder extends Seeder
         $group->page_id = 1;
         $group->save();
         $group->Users()->attach(1);
+
+        Group::factory()->count(19)->create();
     }
 }

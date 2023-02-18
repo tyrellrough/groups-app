@@ -17,5 +17,7 @@ class CommentTableSeeder extends Seeder
         $comment->text = "Comment testing text";
         $comment->post_id = 1;
         $comment->save();
+
+        Comment::factory()->count(500)->create();
     }
 }

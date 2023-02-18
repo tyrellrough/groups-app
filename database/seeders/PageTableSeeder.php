@@ -21,6 +21,6 @@ class PageTableSeeder extends Seeder
         $page2->name = "testingPage2";
         $page2->save();
         
-        //factory call will go here.
+        Page::factory()->count(18)->create();
     }
 }
