@@ -20,4 +20,9 @@ class Page extends Model
     {
         return $this->hasOne(Group::class);
     }
+
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
 }

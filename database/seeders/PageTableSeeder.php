@@ -16,6 +16,10 @@ class PageTableSeeder extends Seeder
         $page = new Page;
         $page->name = "testingPage";
         $page->save();
+
+        $page2 = new Page;
+        $page2->name = "testingPage2";
+        $page2->save();
         
         //factory call will go here.
     }

@@ -14,6 +14,12 @@ return new class extends Migration
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
             $table->string('picture');
+            $table->text('about');
+            $table->bigInteger('page_id')->unsigned();
+
+            $table->foreign('page_id')->references('id')->on('pages')
+            ->onDelete('cascade')->onUpdate('cascade');
+
             $table->timestamps();
         });
     }
