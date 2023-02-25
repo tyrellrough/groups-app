@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GroupController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +18,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+
+Route::get('/groups', function () {
+    return view('Groups.index');
 });
 
 Route::get('/dashboard', function () {
