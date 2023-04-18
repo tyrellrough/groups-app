@@ -46,25 +46,36 @@ class CommentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id): Response
+    public function show(string $id)
     {
-        //
+        
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id): Response
+    public function edit(string $id)
     {
-        //
+        $comment = Comment::findOrFail($id);
+        return view('comments.edit', ['comment' => $comment]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id): RedirectResponse
+    public function update(Request $request, string $id)
     {
-        //
+        $validatedData = $request->validate([
+            'text' => 'required|max:1000',
+        ]);
+        $comment = Comment::findOrFail($id);
+        $currentUser = auth()->user();
+        if(!($currentUser->id == $comment->user_id)) {
+            return redirect()->back();
+        }
+        $comment->text = $validatedData['text'];
+        $comment->save();
+        return redirect()->back()->withInput();
     }
 
     /**
@@ -72,6 +83,12 @@ class CommentController extends Controller
      */
     public function destroy(string $id): RedirectResponse
     {
-        //
+        $currentUser = auth()->user();
+        $comment = Comment::findOrFail($id);
+        if(!($currentUser->id == $comment->user_id)) {
+            return redirect()->back();
+        }
+        $comment->delete();
+        return redirect()->back()->withInput();
     }
 }

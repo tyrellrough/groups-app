@@ -22,30 +22,12 @@
   </section>
         
         @foreach ($posts as $post)
-          <div class="post" id="post{{$post->id}}">
+          <a href="{{ route('posts.show', ['id' => $post->id]) }}"><div class="post" id="post{{$post->id}}">
             @livewire('show-posts',['post' => $post, 'currentUser' => $currentUser])
-          
-          @foreach ($post->comments as $comment)
-                <div class="comment">
-                  @livewire('show-comments',['comment' => $comment])
-                </div>
-               
-  
-          @endforeach
-          <div class="newComment">
-              <form method="post" action="{{ route('comments.store') }}">
-                @csrf
-                <p>Text<input type="text" name="text" maxlength="1000" required></p>
-                <input type="hidden" name="postID" value="{{ $post->id  }}">
-                <input type="hidden" name="groupID" value="{{ $group->id  }}">
-        
-                <input type="submit" value="Submit">
-              </form>
-            </div>
-          </div>
+          </div></a>
         @endforeach
 
-            </div>
+          </div>
         </div>
     </div>
 </x-app-layout>

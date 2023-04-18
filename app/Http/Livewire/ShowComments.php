@@ -9,7 +9,9 @@ class ShowComments extends Component
 {
     public $comment;
     public $user;
-    public function mount($comment)
+    public $currentUser;
+
+    public function mount($comment, $currentUser)
     {
         $this->user = User::findOrFail($comment->user_id);
         

@@ -48,9 +48,12 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id): Response
+    public function show(string $id)
     {
-        //
+        $post = Post::findOrFail($id);
+        //dd($post);
+        $user = auth()->user();
+        return view('posts.show', ['post' => $post, 'currentUser' => $user]);
     }
 
     /**
@@ -69,7 +72,7 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id, )
     {
         $validatedData = $request->validate([
             'text' => 'required|max:1000',
@@ -81,7 +84,7 @@ class PostController extends Controller
         }
         $post->text = $validatedData['text'];
         $post->save();
-        return redirect()->route('user.show',['id' => $request->groupID]);
+        return redirect()->route('user.show',['id' => $currentUser->id]);
     }
 
     /**
