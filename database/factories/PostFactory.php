@@ -20,6 +20,7 @@ class PostFactory extends Factory
             'text' => fake()->text(),
             'image' => fake()->mimeType(),
             'page_id' => fake()->numberBetween(1, 20),
+            'user_id' => fake()->numberBetween(1, 49),
         ];
     }
 }

@@ -19,6 +19,16 @@ class User extends Authenticatable
         return $this->belongsToMany(Group::class);
     }
 
+    public function Posts() 
+    {
+        return $this->hasMany(Posts::class);
+    }
+
+    public function Comments() 
+    {
+        return $this->hasMany(Comments::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *

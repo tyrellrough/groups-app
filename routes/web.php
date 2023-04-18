@@ -1,8 +1,12 @@
 <?php
 
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GroupController;
+
 
 
 /*
@@ -20,10 +24,35 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/groups', [GroupController::class, 'index'])
+->middleware(['auth', 'verified'])->name("groups.index");
 
-Route::get('/groups', function () {
-    return view('Groups.index');
-});
+Route::get('/groups/{id}', [GroupController::class, 'show'])
+->middleware(['auth', 'verified'])->name("groups.show");
+
+Route::get('/user/{id}', [UserController::class, 'show'])
+->middleware(['auth', 'verified'])->name("user.show");
+
+//For adding an image
+Route::get('/add-image',[ImageUploadController::class,'addImage'])->name('images.add');
+
+//For storing an image
+Route::post('/store-image',[ImageUploadController::class,'storeImage'])
+->name('images.store');
+
+//For showing an image
+Route::get('/view-image',[ImageUploadController::class,'viewImage'])->name('images.view');
+
+//posts creating
+Route::get('posts/create', [PostController::class,'create'])->name('posts.create');
+//posts storing
+Route::post('posts', [PostController::class,'store'])->middleware(['auth', 'verified'])->name('posts.store');
+
+//comments
+Route::get('comments/create', [CommentController::class,'create'])->name('comments.create');
+Route::post('comments', [CommentController::class,'store'])->middleware(['auth', 'verified'])->name('comments.store');
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

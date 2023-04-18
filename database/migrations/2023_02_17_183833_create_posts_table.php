@@ -16,8 +16,11 @@ return new class extends Migration
             $table->text('text');
             $table->string('image');
             $table->bigInteger('page_id')->unsigned();
+            $table->bigInteger('user_id')->unsigned();
 
             $table->foreign('page_id')->references('id')->on('pages')
+            ->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('user_id')->references('id')->on('users')
             ->onDelete('cascade')->onUpdate('cascade');
 
             $table->timestamps();
