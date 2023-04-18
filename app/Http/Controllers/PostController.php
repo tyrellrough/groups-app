@@ -75,9 +75,13 @@ class PostController extends Controller
             'text' => 'required|max:1000',
         ]);
         $post = Post::findOrFail($id);
+        $currentUser = auth()->user();
+        if(!($currentUser->id == $post->user_id)) {
+            return redirect()->back();
+        }
         $post->text = $validatedData['text'];
         $post->save();
-        return redirect()->back();
+        return redirect()->route('user.show',['id' => $request->groupID]);
     }
 
     /**
@@ -85,7 +89,12 @@ class PostController extends Controller
      */
     public function destroy(string $id)
     {
+        $currentUser = auth()->user();
         $post = Post::findOrFail($id);
+        if(!($currentUser->id == $post->user_id)) {
+            return redirect()->back();
+        }
         $post->delete();
+        return redirect()->route('user.show',['id' => $currentUser->id]);
     }
 }

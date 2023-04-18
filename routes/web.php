@@ -54,7 +54,7 @@ Route::post('posts', [PostController::class,'store'])->middleware(['auth', 'veri
 
 Route::get('/posts/{id}/edit', [PostController::class, 'edit'])->middleware(['auth', 'verified'])->name('posts.edit');
 Route::patch('/posts/{id}', [PostController::class, 'update'])->middleware(['auth', 'verified'])->name('posts.update');
-Route::patch('/posts/{id}', [PostController::class, 'destroy'])->middleware(['auth', 'verified'])->name('posts.destroy');
+Route::delete('/posts/{id}', [PostController::class, 'destroy'])->middleware(['auth', 'verified'])->name('posts.destroy');
 
 //comments
 Route::get('comments/create', [CommentController::class,'create'])->name('comments.create');

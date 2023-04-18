@@ -18,6 +18,12 @@
         <label><h4>Text</h4><input type="text" name="text" value="{{ $post->text }}" maxlength="1000" required></label>
         <input type="submit" value="Submit">
       </form>
+      <form method="POST" action="{{ route('posts.destroy', ['id' => $post->id]) }}">
+        @csrf
+        @method('delete')
+        <input type="submit" value="Delete">
+      </form>
+
     
   </section>
         
