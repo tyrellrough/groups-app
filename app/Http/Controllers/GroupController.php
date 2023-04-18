@@ -20,6 +20,7 @@ class GroupController extends Controller
         $group = Group::findOrFail($name);
         $page = Page::findOrFail($group->page_id);
         $posts = Post::where('page_id', $page->id)->get();
-        return view('groups.show', ['group' => $group, "page" => $page , 'posts' => $posts]);
+        $user = auth()->user();
+        return view('groups.show', ['group' => $group, "page" => $page , 'posts' => $posts, 'currentUser' => $user]);
     }
 }

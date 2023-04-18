@@ -9,11 +9,11 @@ class ShowPosts extends Component
 {
     public $post;
     public $user;
+    public $currentUser;
 
 
-    public function mount($post)
+    public function mount($post, $currentUser)
     {
-      
         $this->user = User::findOrFail($post->user_id);
         
        

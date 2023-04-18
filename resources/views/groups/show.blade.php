@@ -23,7 +23,7 @@
         
         @foreach ($posts as $post)
           <div class="post" id="post{{$post->id}}">
-            @livewire('show-posts',['post' => $post])
+            @livewire('show-posts',['post' => $post, 'currentUser' => $currentUser])
           
           @foreach ($post->comments as $comment)
                 <div class="comment">

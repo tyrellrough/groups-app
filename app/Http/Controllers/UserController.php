@@ -6,6 +6,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\User;
+use App\Models\Post;
 
 class UserController extends Controller
 {
@@ -39,7 +40,9 @@ class UserController extends Controller
     public function show(string $id)
     {
         $user = User::findOrFail($id);
-        return view('users.show', ['user' => $user]);
+        $posts = Post::where('user_id', $user->id)->get();
+        $currentUser = auth()->user();
+        return view('users.show', ['user' => $user, 'posts' => $posts, 'currentUser' => $currentUser]);
     }
 
     /**
