@@ -6,6 +6,6 @@
     
 
     @if($post->user_id === $currentUser->id)
-        <button type="button">Edit post</button> 
+        <a href="{{ route('posts.edit', ['id' => $post->id]) }}">Edit post</button></a>
     @endif
 </div>

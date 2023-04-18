@@ -30,7 +30,6 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-      
         $validatedData = $request->validate([
             'text' => 'required|max:1000',
             'postID' => 'required',

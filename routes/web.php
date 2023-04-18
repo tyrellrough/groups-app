@@ -24,11 +24,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//groups
 Route::get('/groups', [GroupController::class, 'index'])
 ->middleware(['auth', 'verified'])->name("groups.index");
 
 Route::get('/groups/{id}', [GroupController::class, 'show'])
 ->middleware(['auth', 'verified'])->name("groups.show");
+
+
+
 
 Route::get('/user/{id}', [UserController::class, 'show'])
 ->middleware(['auth', 'verified'])->name("user.show");
@@ -44,9 +48,13 @@ Route::post('/store-image',[ImageUploadController::class,'storeImage'])
 Route::get('/view-image',[ImageUploadController::class,'viewImage'])->name('images.view');
 
 //posts creating
-Route::get('posts/create', [PostController::class,'create'])->name('posts.create');
+//Route::get('posts/create', [PostController::class,'create'])->name('posts.create');
 //posts storing
 Route::post('posts', [PostController::class,'store'])->middleware(['auth', 'verified'])->name('posts.store');
+
+Route::get('/posts/{id}/edit', [PostController::class, 'edit'])->middleware(['auth', 'verified'])->name('posts.edit');
+Route::patch('/posts/{id}', [PostController::class, 'update'])->middleware(['auth', 'verified'])->name('posts.update');
+Route::patch('/posts/{id}', [PostController::class, 'destroy'])->middleware(['auth', 'verified'])->name('posts.destroy');
 
 //comments
 Route::get('comments/create', [CommentController::class,'create'])->name('comments.create');

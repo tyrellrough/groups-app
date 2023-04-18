@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Auth\Authenticatable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -55,24 +56,36 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id): Response
+    public function edit(string $id)
     {
-        //
+        $currentUser = auth()->user();
+        $post = Post::findOrFail($id);
+        if(!($currentUser->id == $post->user_id)) {
+            return redirect()->back();
+        }
+        return view('posts.edit', ['post' => $post]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id): RedirectResponse
+    public function update(Request $request, string $id)
     {
-        //
+        $validatedData = $request->validate([
+            'text' => 'required|max:1000',
+        ]);
+        $post = Post::findOrFail($id);
+        $post->text = $validatedData['text'];
+        $post->save();
+        return redirect()->back();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id): RedirectResponse
+    public function destroy(string $id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $post->delete();
     }
 }

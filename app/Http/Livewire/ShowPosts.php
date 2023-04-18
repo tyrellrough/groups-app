@@ -16,7 +16,6 @@ class ShowPosts extends Component
     {
         $this->user = User::findOrFail($post->user_id);
         
-       
 
     }
 
