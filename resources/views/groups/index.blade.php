@@ -9,9 +9,13 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                <p>{{ $user }}</p>
                 @foreach ($groups as $group)             
-                <li><a href="{{ route('groups.show', ['id' => $group->id]) }}"> {{ $group->name }}</a></li>         
+                <li><a href="{{ route('groups.show', ['id' => $group->id]) }}"> {{ $group->name }}</a></li>
+                @if(in_array($group->id, $followedGroups, false))
+                    <a href="#test">Leave Group</a> 
+                @else
+                    <a href="#test">Join Group</a> 
+                @endif
                 @endforeach         
                 <p>Groups go here</p>
                 </div>

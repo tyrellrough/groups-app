@@ -13,7 +13,10 @@ class GroupController extends Controller
     public function index() {
         $groups = Group::all();
         $user = auth()->user();
-        return view('groups.index', ['groups' => $groups, 'user' => $user]);
+        $followedGroups = $user->groups->pluck('id')->all();
+
+      
+        return view('groups.index', ['groups' => $groups, 'user' => $user, 'followedGroups' => $followedGroups]);
     }
 
     public function show($name) {
