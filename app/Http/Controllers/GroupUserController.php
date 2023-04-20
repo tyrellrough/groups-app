@@ -19,17 +19,19 @@ class GroupUserController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
-    {
+    {  
         $validatedData = $request->validate([
-            'text' => 'required|max:1000',
+            'userInGroup' => 'required',
         ]);
-        $post = Post::findOrFail($id);
+        
         $currentUser = auth()->user();
-        if(!($currentUser->id == $post->user_id)) {
-            return redirect()->back();
+        $groupToAttach = Group::findOrFail($id);
+        $isUserInGroup = $validatedData['userInGroup'];
+        if($isUserInGroup === "true") {
+            $currentUser->groups()->detach($groupToAttach);
+        } elseif ($isUserInGroup === "false") {
+            $currentUser->groups()->attach($groupToAttach);
         }
-        $post->text = $validatedData['text'];
-        $post->save();
-        return redirect()->route('user.show',['id' => $currentUser->id]);
+        return redirect()->route('groups.index');
     }
 }

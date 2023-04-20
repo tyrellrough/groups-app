@@ -26,15 +26,13 @@ Route::get('/', function () {
 });
 
 //groups
-Route::get('/groups', [GroupController::class, 'index'])
-->middleware(['auth', 'verified'])->name("groups.index");
+Route::get('/groups', [GroupController::class, 'index'])->middleware(['auth', 'verified'])->name("groups.index");
 
-Route::get('/groups/{id}', [GroupController::class, 'show'])
-->middleware(['auth', 'verified'])->name("groups.show");
+Route::get('/groups/{id}', [GroupController::class, 'show'])->middleware(['auth', 'verified'])->name("groups.show");
 
 //group_user pivot
-Route::get('followedGroups', [GroupUserController::class, 'index'])
-->middleware(['auth', 'verified'])->name("groupUser.index");
+Route::get('followedGroups', [GroupUserController::class, 'index'])->middleware(['auth', 'verified'])->name("groupUser.index");
+Route::patch('/followedGroups/{id}/update', [GroupUserController::class, 'update'])->middleware(['auth', 'verified'])->name('groupUser.update');
 
 Route::get('/user/{id}', [UserController::class, 'show'])
 ->middleware(['auth', 'verified'])->name("user.show");

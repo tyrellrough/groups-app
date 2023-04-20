@@ -12,9 +12,19 @@
                 @foreach ($groups as $group)             
                 <li><a href="{{ route('groups.show', ['id' => $group->id]) }}"> {{ $group->name }}</a></li>
                 @if(in_array($group->id, $followedGroups, false))
-                    <a href="#test">Leave Group</a> 
+                    <form method="POST" action="{{ route('groupUser.update', ['id' =>$group->id]) }}">
+                        @csrf
+                        @method('patch')
+                        <input type="hidden" id="userInGroup" name="userInGroup" value="true">
+                        <input type="submit" value="Leave Group">
+                    </form>
                 @else
-                    <a href="#test">Join Group</a> 
+                    <form method="POST" action="{{ route('groupUser.update', ['id' =>$group->id]) }}">
+                        @csrf
+                        @method('patch')
+                        <input type="hidden" id="userInGroup" name="userInGroup" value="false">
+                        <input type="submit" value="Join Group">
+                    </form>
                 @endif
                 @endforeach         
                 <p>Groups go here</p>
