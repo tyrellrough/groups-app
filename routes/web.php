@@ -31,6 +31,10 @@ Route::get('/groups', [GroupController::class, 'index'])
 Route::get('/groups/{id}', [GroupController::class, 'show'])
 ->middleware(['auth', 'verified'])->name("groups.show");
 
+//group_user pivot
+Route::get('/followedGroups', [GroupUserController::class, 'show'])
+->middleware(['auth', 'verified'])->name("groups.show");
+
 Route::get('/user/{id}', [UserController::class, 'show'])
 ->middleware(['auth', 'verified'])->name("user.show");
 
