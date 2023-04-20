@@ -17,7 +17,7 @@
                         {{ __('Explore Groups') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('groups.index')" :active="request()->routeIs('groups.index')">
+                    <x-nav-link :href="route('groupUser.index')" :active="request()->routeIs('groupUser.index')">
                         {{ __('Your Groups') }}
                     </x-nav-link>
                 </div>

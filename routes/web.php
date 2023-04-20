@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GroupController;
+use App\Http\Controllers\GroupUserController;
 
 
 
@@ -32,8 +33,8 @@ Route::get('/groups/{id}', [GroupController::class, 'show'])
 ->middleware(['auth', 'verified'])->name("groups.show");
 
 //group_user pivot
-Route::get('/followedGroups', [GroupUserController::class, 'show'])
-->middleware(['auth', 'verified'])->name("groups.show");
+Route::get('followedGroups', [GroupUserController::class, 'index'])
+->middleware(['auth', 'verified'])->name("groupUser.index");
 
 Route::get('/user/{id}', [UserController::class, 'show'])
 ->middleware(['auth', 'verified'])->name("user.show");
