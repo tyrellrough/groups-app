@@ -11,13 +11,15 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                 <section id="newPostSection">
-      <form method="post" action="{{ route('posts.store') }}">
+      <label>New post<form method="post" enctype="multipart/form-data" action="{{ route('posts.store') }}">
         @csrf
-        <label><h4>Text</h4><input type="text" name="text" maxlength="1000" required></label>
+
+        <label>Text </h4><input type="text" name="text" maxlength="1000" required></label>
+        <label>Image <input type="file" class="form-control" name="image"></label>
         <input type="hidden" name="pageID" value="{{ $page->id  }}">
         <input type="hidden" name="groupID" value="{{ $group->id  }}">
         <input type="submit" value="Submit">
-      </form>
+      </form></label>
     
   </section>
         

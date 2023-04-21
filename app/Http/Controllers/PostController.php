@@ -7,6 +7,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\Post;
+use App\Models\Image;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -31,16 +33,39 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request["image"]);
+
         $validatedData = $request->validate([
             'text' => 'required|max:1000',
             'pageID' => 'required',
         ]);
+
         $newPost = new Post;
         $newPost->text = $validatedData["text"];
         $newPost->page_id = $validatedData["pageID"];
         $newPost->image = "placeHolderImage";
         $newPost->user_id = auth()->user()->id;
-        $newPost ->save();
+        $newPost->save();
+
+        //image creation and adding.
+        
+        if($request->file('image')) {
+            $newImage = new Image();
+            $file = $request->file('image');
+            
+            $filename = date('YmdHi').$file->getClientOriginalName();
+           
+            //Storage::disk('public/Image/')->put($filename, file_get_contents($file));
+            $file->move(public_path('images'), $filename);
+
+          
+            $newImage->image = $filename;
+            //dd($newPost->id);
+            $newImage->post_id = $newPost->id;
+            $newImage->save();
+        }
+        
+
         session()->flash('message', "Post was created.");
         return redirect()->route('groups.show',['id' => $request->groupID]);
     }

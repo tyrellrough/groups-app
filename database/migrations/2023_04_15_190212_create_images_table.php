@@ -15,6 +15,10 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('image')->nullable();
+            $table->bigInteger('post_id')->unsigned();
+
+            $table->foreign('post_id')->references('id')->on('posts')
+            ->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
