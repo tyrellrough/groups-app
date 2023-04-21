@@ -43,7 +43,6 @@ class PostController extends Controller
         $newPost = new Post;
         $newPost->text = $validatedData["text"];
         $newPost->page_id = $validatedData["pageID"];
-        $newPost->image = "placeHolderImage";
         $newPost->user_id = auth()->user()->id;
         $newPost->save();
 
@@ -52,15 +51,11 @@ class PostController extends Controller
         if($request->file('image')) {
             $newImage = new Image();
             $file = $request->file('image');
-            
             $filename = date('YmdHi').$file->getClientOriginalName();
-           
-            //Storage::disk('public/Image/')->put($filename, file_get_contents($file));
             $file->move(public_path('images'), $filename);
-
-          
+       
             $newImage->image = $filename;
-            //dd($newPost->id);
+           
             $newImage->post_id = $newPost->id;
             $newImage->save();
         }
