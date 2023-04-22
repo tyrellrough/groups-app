@@ -41,7 +41,6 @@ class CommentController extends Controller
         $newComment ->save();
         session()->flash('message', "Comment was created.");
         return redirect()->back();
-        //return redirect()->route('groups.show',['id' => $request->groupID]);
     }
 
     /**
@@ -86,7 +85,7 @@ class CommentController extends Controller
     {
         $currentUser = auth()->user();
         $comment = Comment::findOrFail($id);
-        if(!($currentUser->id == $comment->user_id)) {
+        if(!($currentUser->id == $comment->user_id) and ($currentUser->isAdmin === 0)) {
             return redirect()->back();
         }
         $comment->delete();
