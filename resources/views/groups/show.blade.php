@@ -13,7 +13,6 @@
                 <section id="newPostSection">
       <label>New post<form method="post" enctype="multipart/form-data" action="{{ route('posts.store') }}">
         @csrf
-
         <label>Text </h4><input type="text" name="text" maxlength="1000" required></label>
         <label>Image <input type="file" class="form-control" name="image"></label>
         <input type="hidden" name="pageID" value="{{ $page->id  }}">

@@ -83,7 +83,7 @@ class PostController extends Controller
     {
         $currentUser = auth()->user();
         $post = Post::findOrFail($id);
-        if(!($currentUser->id == $post->user_id)) {
+        if(!($currentUser->id == $post->user_id) and ($currentUser->isAdmin === 0)) {
             return redirect()->back();
         }
         return view('posts.edit', ['post' => $post]);
@@ -104,7 +104,8 @@ class PostController extends Controller
         }
         $post->text = $validatedData['text'];
         $post->save();
-        return redirect()->route('user.show',['id' => $currentUser->id]);
+        return redirect()->back();
+        //return redirect()->route('user.show',['id' => $currentUser->id]);
     }
 
     /**
@@ -114,7 +115,7 @@ class PostController extends Controller
     {
         $currentUser = auth()->user();
         $post = Post::findOrFail($id);
-        if(!($currentUser->id == $post->user_id)) {
+        if(!($currentUser->id == $post->user_id) and ($currentUser->isAdmin === 0)) {
             return redirect()->back();
         }
         $post->delete();
