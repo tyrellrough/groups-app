@@ -4,7 +4,7 @@
         <a href="{{ route('user.show', ['id' => $user->id]) }}" ><p>{{ $user->name }}</p></a>
         </div>
         <div class="py-">
-        <p>{{ $post->text }}</p>
+        <a href="{{ route('posts.show', ['id' => $post->id]) }}"><p>{{ $post->text }}</p></a>
         </div>
     @if(!($post->image === null))
         <img src="{{ url('/images/'.$post->image->image) }}" style="height: 100px; width: 150px;">

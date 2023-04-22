@@ -14,6 +14,15 @@
                         <div class="post">
                             @livewire('show-posts',['post' => $post, 'currentUser' => $currentUser])
                         </div>
+
+                        <label>New Comment<form method="post" action="{{ route('comments.store') }}">
+                        @csrf
+                        <label>Text </h4><input type="text" name="text" maxlength="1000" required></label>
+                        <input type="hidden" name="postID" value="{{ $post->id  }}">
+                        <input type="submit" value="Submit">
+                        </form></label>
+
+
                         @foreach ($post->comments as $comment)
                             <div class="comment">
                                 @livewire('show-comments',['comment' => $comment, 'currentUser' => $currentUser])

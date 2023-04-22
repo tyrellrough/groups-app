@@ -40,7 +40,8 @@ class CommentController extends Controller
         $newComment->user_id = auth()->user()->id;
         $newComment ->save();
         session()->flash('message', "Comment was created.");
-        return redirect()->route('groups.show',['id' => $request->groupID]);
+        return redirect()->back();
+        //return redirect()->route('groups.show',['id' => $request->groupID]);
     }
 
     /**
