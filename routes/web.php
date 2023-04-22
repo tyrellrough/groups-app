@@ -38,16 +38,6 @@ Route::patch('/followedGroups/{id}/update', [GroupUserController::class, 'update
 Route::get('/user/{id}', [UserController::class, 'show'])
 ->middleware(['auth', 'verified'])->name("user.show");
 
-//email
-Route::get('/testroute', function() {
-    $currentUser = auth()->user();
-    $currentUsername = $currentUser->name;
-    dd($currentUser->email);
-//The email sending is done using the to method on the Mail facade
-    Mail::to('testreceiver@gmail.com')->send(new CommentEmail($currentUsername));
-})->middleware(['auth', 'verified']);
-
-
 //posts storing
 Route::post('posts', [PostController::class,'store'])->middleware(['auth', 'verified'])->name('posts.store');
 
