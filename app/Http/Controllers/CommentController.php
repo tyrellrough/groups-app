@@ -89,6 +89,7 @@ class CommentController extends Controller
             return redirect()->back();
         }
         $comment->delete();
-        return redirect()->back()->withInput();
+        return redirect()->route('user.show',['id' => $currentUser->id]);
+        //return redirect()->back()->withInput();
     }
 }
