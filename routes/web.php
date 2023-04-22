@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\GroupUserController;
+use App\Mail\CommentEmail;
 
 
 
@@ -37,18 +38,16 @@ Route::patch('/followedGroups/{id}/update', [GroupUserController::class, 'update
 Route::get('/user/{id}', [UserController::class, 'show'])
 ->middleware(['auth', 'verified'])->name("user.show");
 
-//For adding an image
-// Route::get('/add-image',[ImageUploadController::class,'addImage'])->name('images.add');
+//email
+Route::get('/testroute', function() {
+    $currentUser = auth()->user();
+    $currentUsername = $currentUser->name;
+    dd($currentUser->email);
+//The email sending is done using the to method on the Mail facade
+    Mail::to('testreceiver@gmail.com')->send(new CommentEmail($currentUsername));
+})->middleware(['auth', 'verified']);
 
-// //For storing an image
-// Route::post('/store-image',[ImageUploadController::class,'storeImage'])
-// ->name('images.store');
 
-// //For showing an image
-// Route::get('/view-image',[ImageUploadController::class,'viewImage'])->name('images.view');
-
-//posts creating
-//Route::get('posts/create', [PostController::class,'create'])->name('posts.create');
 //posts storing
 Route::post('posts', [PostController::class,'store'])->middleware(['auth', 'verified'])->name('posts.store');
 

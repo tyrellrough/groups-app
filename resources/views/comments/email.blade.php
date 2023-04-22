@@ -1,3 +1,2 @@
-Hey, 
-Can your Laravel app send emails yet? 😉 
-Funny Coder
+<div>Your Post: {{ $postText }}</div>
+<div>New comment: {{ $commentText }}</div>

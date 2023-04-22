@@ -6,6 +6,10 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\Comment;
+use App\Models\Post;
+use App\Models\User;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\CommentEmail;
 
 class CommentController extends Controller
 {
@@ -40,6 +44,14 @@ class CommentController extends Controller
         $newComment->user_id = auth()->user()->id;
         $newComment ->save();
         session()->flash('message', "Comment was created.");
+    
+        //email (notify post creator of comment)
+        $currentUsername = auth()->user()->name;
+        $post = Post::findOrFail($validatedData["postID"]);
+        $user = User::findOrFail($post->user_id);
+        $recipientEmail = $user->email; 
+
+        Mail::to($recipientEmail)->send(new CommentEmail($currentUsername, $post->text, $newComment->text));
         return redirect()->back();
     }
 

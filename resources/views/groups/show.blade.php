@@ -14,7 +14,7 @@
                             <label>New post</label>
                             <form method="post" enctype="multipart/form-data" action="{{ route('posts.store') }}" class="py-2 w-full">
                                 @csrf
-                                <label>Text</label><textarea name="text" maxlength="1000" rows="5" cols="10" required class="py-2 w-full"> </textarea>
+                                <label>Text (required)</label><textarea name="text" maxlength="1000" rows="5" cols="10" required class="py-2 w-full"> </textarea>
                                
                                 <label>Image</label> <input type="file" class="form-control" name="image" class="py-2 w-full">
                                 <input type="hidden" name="pageID" value="{{ $page->id }}">

@@ -13,12 +13,18 @@ class CommentEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $name;
+    public $postText;
+    public $commentText;
+
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct($name, $postText, $commentText)
     {
-        //
+        $this->name = $name;
+        $this->postText = $postText;
+        $this->commentText = $commentText;
     }
 
     /**
@@ -27,7 +33,7 @@ class CommentEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Someone has commented on one of your posts!',
+            subject: $this->name.' has commented on one of your posts!',
         );
     }
 
@@ -37,7 +43,8 @@ class CommentEmail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            view: 'comments.email',
+            with: ['name' => $this->name, 'postText' => $this->postText, 'commentText' => $this->commentText]
         );
     }
 

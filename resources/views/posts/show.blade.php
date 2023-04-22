@@ -13,7 +13,6 @@
                         <div class="post">
                             @livewire('show-posts',['post' => $post, 'currentUser' => $currentUser])
                         </div>
-
                         <div class="w-full p-4 border-b flex">
                             <label>New Comment<form method="post" action="{{ route('comments.store') }}">
                                     @csrf
